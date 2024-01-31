@@ -1,6 +1,6 @@
 package Parkhaus;
 
-public class Parkplatz implements IParkhausParkplatz{
+public class Parkplatz{
 
     private String id;
     private boolean frei;
