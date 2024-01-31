@@ -18,7 +18,7 @@ public class Etage{
         return this.parkplaetze;
     }
 
-    public Parkplatz findeFreienParkplatz(){
+    public Parkplatz findeFreienEtagenParkplatz(){
         for(Parkplatz tmpParkplatz : this.parkplaetze){
             if( tmpParkplatz.istFrei() ){
                 return tmpParkplatz;
