@@ -4,15 +4,19 @@ public abstract class Fahrzeug {
 
     private String kennzeichen;
 
-    public Fahrzeug(String kennzeichen){
-        this.kennzeichen = kennzeichen;
+    protected static int count = 0;
+
+    public Fahrzeug(){
+        count++;
+        this.kennzeichen = generateKennzeichen();
+    }
+
+    protected String generateKennzeichen(){
+        return "KFZ" + count;
     }
 
     public String getKennzeichen(){
         return this.kennzeichen;
-    }
-    public void setKennzeichen(String kennzeichen){
-        this.kennzeichen = kennzeichen;
     }
 
     public void reinfahren(){

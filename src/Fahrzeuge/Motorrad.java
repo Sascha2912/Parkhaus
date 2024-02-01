@@ -2,8 +2,14 @@ package Fahrzeuge;
 
 public class Motorrad extends Fahrzeug{
 
-    public Motorrad(String kennzeichen){
-        super(kennzeichen);
+    public Motorrad(){
+        super();
+    }
+
+    @Override
+    protected String generateKennzeichen() {
+        count++;
+        return "MO" + count;
     }
 
 }
