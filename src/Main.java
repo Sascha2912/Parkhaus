@@ -1,5 +1,49 @@
+import Parkhaus.Etage;
+import Parkhaus.Parkplatz;
+import Parkhaus.Parkhaus;
+import Fahrzeuge.Fahrzeug;
+import Fahrzeuge.Auto;
+import Fahrzeuge.Motorrad;
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+
+        // Erstellen von Parkhaus mit 2 Etagen und je 5 Parkplätzen
+        Parkhaus parkhaus = new Parkhaus(2, 5);
+
+        // Erstellen von Autos und Motorrädern
+        Auto auto1 = new Auto();
+        Auto auto2 = new Auto();
+        Motorrad motorrad1 = new Motorrad();
+        Motorrad motorrad2 = new Motorrad();
+
+        // Einparken der Fahrzeuge
+        parkhaus.einparken(auto1);
+        parkhaus.einparken(auto2);
+        parkhaus.einparken(motorrad1);
+        parkhaus.einparken(motorrad2);
+
+        // Ausgabe der Kennzeichen der geparkten Fahrzeuge
+        System.out.println("Geparkte Fahrzeuge:");
+        for (Etage etage : parkhaus.getEtagen()) {
+            for (Parkplatz parkplatz : etage.getParkplaetze()) {
+                if (!parkplatz.istFrei()) {
+                    System.out.println(parkplatz.getFahrzeug().getKennzeichen());
+                }
+            }
+        }
+
+        // Ausparken eines Fahrzeugs
+        parkhaus.ausparken(auto2);
+
+        // Ausgabe der Kennzeichen nach dem Ausparken
+        System.out.println("\nNach dem Ausparken:");
+        for (Etage etage : parkhaus.getEtagen()) {
+            for (Parkplatz parkplatz : etage.getParkplaetze()) {
+                if (!parkplatz.istFrei()) {
+                    System.out.println(parkplatz.getFahrzeug().getKennzeichen());
+                }
+            }
+        }
     }
+
 }
