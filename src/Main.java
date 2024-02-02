@@ -32,22 +32,10 @@ public class Main {
             parkhaus.motorradEinparken();
         }
 
-        /*
-        // Ausgabe der Kennzeichen der geparkten Fahrzeuge
-        System.out.println("Geparkte Fahrzeuge:");
-        for (Etage etage : parkhaus.getEtagen()) {
-            for (Parkplatz parkplatz : etage.getParkplaetze()) {
-                if (!parkplatz.istFrei()) {
-                    System.out.println(parkplatz.getFahrzeug().getKennzeichen());
-                }
-            }
-        }
-        */
-
         parkhaus.geparkteFahrzeuge();
 
         // Ausparken eines Fahrzeugs
-        parkhaus.ausparken2("au5");
+        parkhaus.ausparken("au5");
 
         System.out.println("Fahrzeuge nach dem Ausparken:");
 
@@ -55,19 +43,10 @@ public class Main {
 
         parkhaus.freieParkplaetze();
 
+        parkhaus.gesamtGroesseParkhaus();
 
+        parkhaus.parkhausBelegung();
 
-        /*
-        // Ausgabe der Kennzeichen nach dem Ausparken
-        System.out.println("\nNach dem Ausparken:");
-        for (Etage etage : parkhaus.getEtagen()) {
-            for (Parkplatz parkplatz : etage.getParkplaetze()) {
-                if (!parkplatz.istFrei()) {
-                    System.out.println(parkplatz.getFahrzeug().getKennzeichen());
-                }
-            }
-        }
-        */
     }
 
 
