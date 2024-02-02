@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Parkhaus {
 
-    private List<Etage> etagen;
+    public List<Etage> etagen;
 
     private int anzahlEtagen;
 
@@ -17,16 +17,40 @@ public class Parkhaus {
 
     public Parkhaus(int anzahlEtagen, int parkplaetzeProEtage){
         etagen = new ArrayList<>();
+        addEtage(anzahlEtagen, parkplaetzeProEtage);
+
+    }
+
+    public void addEtage(int anzahlEtagen, int parkplaetzeProEtage){
         for(int i = 1; i <= anzahlEtagen; i++){
             etagen.add(new Etage(parkplaetzeProEtage));
         }
         this.anzahlEtagen = anzahlEtagen;
-        this.anzahlParkplaetzeGesamt = anzahlEtagen * parkplaetzeProEtage;
+        this.anzahlParkplaetzeGesamt = getAllParkplaetze();
+    }
+
+    public void removeEtage(int removeAnzahlEtagen){
+        for(int i = 1; i <= removeAnzahlEtagen; i++){
+            etagen.remove(etagen.size() - 1);
+        }
+        this.anzahlEtagen = this.anzahlEtagen - anzahlEtagen;
+        this.anzahlParkplaetzeGesamt = getAllParkplaetze();
     }
 
     public List<Etage> getEtagen(){
         return this.etagen;
     }
+    public int getAllParkplaetze(){
+        int parkplatzCount = 0;
+        for(Etage tmpEtage : etagen){
+            for(Parkplatz tmpParkplatz : tmpEtage.getParkplaetze()){
+                parkplatzCount++;
+            }
+        }
+        return  parkplatzCount;
+    }
+
+
 
     public Parkplatz findeFreienParkhausParkplatz(){
         for(Etage tmpEtage : etagen) {
@@ -143,7 +167,7 @@ public class Parkhaus {
 
     public void gesamtGroesseParkhaus(){
         int parkplaetzeProEtage = anzahlParkplaetzeGesamt / anzahlEtagen;
-        System.out.println("Das Parkhaus besteht aus: " + parkplaetzeProEtage + " Parkplätzen pro Etage.\nAnzahl Etagen: " + anzahlEtagen + "\nAnzahl Parkplätze gesamt: " + anzahlParkplaetzeGesamt);
+        System.out.println("Das Parkhaus besteht aus:\n" + anzahlEtagen + " Etagen | " + parkplaetzeProEtage + " Parkplätzen pro Etage: " + "\nParkplätze gesamt => " + anzahlParkplaetzeGesamt);
     }
     public void parkhausBelegung(){
         int freieParkplaetze = 0;
