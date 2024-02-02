@@ -16,6 +16,10 @@ public class Parkhaus {
         }
     }
 
+    public List<Etage> getEtagen(){
+        return this.etagen;
+    }
+
     public Parkplatz findeFreienParkhausParkplatz(){
         for(Etage tmpEtage : etagen) {
            Parkplatz parkplatz = tmpEtage.findeFreienEtagenParkplatz();
