@@ -78,19 +78,30 @@ public class Parkhaus {
     }
 
     public boolean ausparken(String kennzeichen){
+         Parkplatz tmpParkplatz = fahrzeugSuche(kennzeichen);
+
+        if(tmpParkplatz != null){
+            System.out.println("Ausgeparkt. Parkplatz wieder frei.");
+            tmpParkplatz.freigeben();
+            return true;
+        }
+        System.out.println("Fahrzeug nicht gefunden.");
+        return false;
+    }
+
+    public Parkplatz fahrzeugSuche(String kennzeichen){
         for(Etage tmpEtage : etagen){
             for(Parkplatz tmpParkplatz: tmpEtage.getParkplaetze()){
                 Fahrzeug tmpFahrzeug = tmpParkplatz.getFahrzeug();
                 if( tmpFahrzeug != null && !tmpParkplatz.istFrei() && tmpFahrzeug.getKennzeichen().equals( kennzeichen.toUpperCase() ) ){
-                    tmpParkplatz.freigeben();
-                    System.out.println("Das Fahrzeug: " + tmpFahrzeug.getKennzeichen() + " hat den Parkplatz " + tmpParkplatz.getId() + " auf Etage: " + tmpEtage.getEtagenId() + " verlassen.\nParkplatz: " + tmpParkplatz.getId() + " auf Etage: " + tmpEtage.getEtagenId() + " ist wieder freigegeben.");
-                    return true;
+                    System.out.println("Kennzeichen: " + tmpFahrzeug.getKennzeichen() + " | Fahrzeugtyp: " + tmpFahrzeug.getType() +  " | Etage: " + tmpEtage.getEtagenId() + " | Parkplatz: " + tmpParkplatz.getId() );
+                    return tmpParkplatz;
                 }
 
             }
         }
         System.out.println("Fahrzeug nicht gefunden.");
-        return false;
+        return null;
     }
 
     public boolean ausparken2(Fahrzeug fahrzeug){
