@@ -3,12 +3,11 @@ package Fahrzeuge;
 public class Auto extends Fahrzeug{
 
     public Auto(){
-        super();
+        super("Auto");
     }
 
     @Override
     protected String generateKennzeichen() {
-        count++;
         return "AU" + count;
     }
 

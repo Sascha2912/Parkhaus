@@ -3,12 +3,14 @@ package Fahrzeuge;
 public abstract class Fahrzeug {
 
     private String kennzeichen;
+    private String typ = "";
 
     protected static int count = 0;
 
-    public Fahrzeug(){
+    public Fahrzeug(String typ){
         count++;
         this.kennzeichen = generateKennzeichen();
+        this.typ = typ;
     }
 
     protected String generateKennzeichen(){
@@ -17,6 +19,10 @@ public abstract class Fahrzeug {
 
     public String getKennzeichen(){
         return this.kennzeichen;
+    }
+
+    public String getType(){
+        return this.typ;
     }
 
     public void reinfahren(){
