@@ -7,13 +7,22 @@ public class Etage{
     private List<Parkplatz> parkplaetze;
     // Konstruktor, der die Anzahl der Parkplätze für die Etage festlegt
 
+    private static int etagencount = 0;
+    private int id;
+
     public Etage(int anzahlParkplaetze){
+        this.id = etagencount;
+        etagencount++;
         this.parkplaetze = new ArrayList<>();
 
         // Schleife, um die angegebene Anzahl von Parkplätzen zu erstellen und der Liste hinzuzufügen
         for(int i = 1; i<= anzahlParkplaetze; i++){
             this.parkplaetze.add(new Parkplatz("P" + i));
         }
+    }
+
+    public int getEtagenId(){
+        return this.id;
     }
 
     public List<Parkplatz> getParkplaetze(){
