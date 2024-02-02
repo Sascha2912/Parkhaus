@@ -8,7 +8,8 @@ public class Main {
     public static void main(String[] args) {
 
         // Erstellen von Parkhaus mit 2 Etagen und je 5 Parkplätzen
-        Parkhaus parkhaus = new Parkhaus(2, 5);
+        Parkhaus parkhaus = new Parkhaus(3, 5);
+
 
         // Erstellen von Autos und Motorrädern
         Auto auto1 = new Auto();
@@ -22,6 +23,16 @@ public class Main {
         parkhaus.einparken(motorrad1);
         parkhaus.einparken(motorrad2);
 
+
+        for(int i = 1; i<= 5; i++){
+            parkhaus.autoEinparken();
+        }
+
+        for(int i = 1; i<= 5; i++){
+            parkhaus.motorradEinparken();
+        }
+
+        /*
         // Ausgabe der Kennzeichen der geparkten Fahrzeuge
         System.out.println("Geparkte Fahrzeuge:");
         for (Etage etage : parkhaus.getEtagen()) {
@@ -31,10 +42,22 @@ public class Main {
                 }
             }
         }
+        */
+
+        parkhaus.geparkteFahrzeuge();
 
         // Ausparken eines Fahrzeugs
-        parkhaus.ausparken(auto2);
+        parkhaus.ausparken2("au5");
 
+        System.out.println("Fahrzeuge nach dem Ausparken:");
+
+        parkhaus.geparkteFahrzeuge();
+
+        parkhaus.freieParkplaetze();
+
+
+
+        /*
         // Ausgabe der Kennzeichen nach dem Ausparken
         System.out.println("\nNach dem Ausparken:");
         for (Etage etage : parkhaus.getEtagen()) {
@@ -44,6 +67,9 @@ public class Main {
                 }
             }
         }
+        */
     }
+
+
 
 }
