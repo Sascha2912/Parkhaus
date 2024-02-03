@@ -30,9 +30,10 @@ public class GaragenController {
    }
    public void menue(){
         while(true){
-            int userWahl = UserController.getUserIntMinMax("Bitte wähle Sie:\nParkhaus bearbeiten (1)\nProgramm beenden (4)", 1, 4);
+            int userWahl = UserController.getUserIntMinMax("Bitte wähle Sie:\nParkhaus bearbeiten (1)\nParkhaus verwalten (2)\nProgramm beenden (4)", 1, 4);
             switch(userWahl){
                 case 1 -> menueParkhausBearbeiten();
+                case 2 -> menueParkhausVerwalten();
 
                 case 4 -> {
                     return;
@@ -52,6 +53,7 @@ public class GaragenController {
         }
        System.out.println("Parkhaus aktualisiert.");
        parkhaus.gesamtGroesseParkhaus();
+       menueParkhausBearbeiten();
 
 
 
@@ -65,33 +67,67 @@ public class GaragenController {
        int removeAnzahlEtagen = UserController.getUserInt("Wie viele Etagen sollen aus dem Parkhaus entfernt werden: ");
        parkhaus.removeEtage(removeAnzahlEtagen);
    }
-   public void parkhausVerwalten(){
+   public void menueParkhausVerwalten(){
         int userWahl = UserController.getUserIntMinMax("Fahrzeuge Verwalten:\nFahrzeuge einparken (1)\nFahrzeuge ausparken (2)\nFahrzeugsuche (3)\nParkhausinformationen (4)\nZurück (5)", 1, 5);
-        /*
+
         switch (userWahl){
             case 1 -> fahrzeugEinparken();
-            case 2 -> fahrzeugeAusparken();
-            case 3 -> fahrzeugSuche();
-            case 4 -> parkhausInfo()
+            case 2 -> fahrzeugAusparken();
+            case 3 -> sucheFahrzeug();
+            // case 4 -> parkhausInfo();
             case 5 -> {return;}
         }
-        */
+        menueParkhausVerwalten();
+
 
    }
    public void fahrzeugEinparken(){
-       int userWahl = UserController.getUserIntMinMax("Fahrzeuge einparken. Bitte wählen Sie:\nAuto einparken (1)\nMotorrad einparken (2)\nZurück (3)", 1, 3);
+       int userWahl = UserController.getUserIntMinMax("Fahrzeuge einparken. Bitte wählen Sie:\nAuto einparken (1)\nMotorrad einparken (2)\nGesamtes Parkhaus füllen (3)\nZurück (4)", 1, 4);
        switch (userWahl){
            case 1 -> parkeAuto();
            case 2 -> parkeMotorrad();
-           case 3 -> {return;}
+           case 3 -> parkhausFuellen();
+           case 4 -> {return;}
        }
+       fahrzeugEinparken();
    }
+    public void fahrzeugAusparken(){
+        int userWahl = UserController.getUserIntMinMax("Fahrzeuge ausparken. Bitte wählen Sie:\nAlle geparkten Fahrzeuge anzeigen (1)\nFahrzeug ausparken (2)\nGesamtes Parkhaus leeren (3)\nZurück (4)", 1, 4);
+        switch (userWahl){
+            case 1 -> parkhaus.geparkteFahrzeuge();
+            case 2 -> einFahrzeugAusparken();
+            case 3 -> parkhausLeeren();
+            case 4 -> {return;}
+        }
+        fahrzeugAusparken();
+    }
+
    public void parkeAuto(){
         int anzahlAutosParken = UserController.getUserInt("Wie viele Autos sollen eingeparkt werden: ");
-        parkhaus.autoEinparken(anzahlAutosParken);
+        for(int i = 0; i < anzahlAutosParken; i++){
+            parkhaus.autoEinparken();
+        }
    }
     public void parkeMotorrad(){
         int anzahlMotorraederParken = UserController.getUserInt("Wie viele Motorräder sollen eingeparkt werden werden: ");
-        parkhaus.motorradEinparken(anzahlMotorraederParken);
+        for(int i = 0; i < anzahlMotorraederParken; i++){
+            parkhaus.motorradEinparken();
+        }
+    }
+    public void parkhausFuellen(){
+        parkhaus.alleEinparken();
+    }
+    public void parkhausLeeren(){
+        parkhaus.alleAusparken();
+    }
+    public void einFahrzeugAusparken(){
+        String kennzeichen = UserController.getUserString("Bitte geben Sie das Kennezichen ein von dem Fahrzeug das aus geparkt werden soll: ");
+        parkhaus.ausparken(kennzeichen);
+    }
+
+    public void sucheFahrzeug(){
+        System.out.println("Fahrzeug suche: ");
+        String kennzeichen = UserController.getUserString("Geben Sie bitte das Kennzeichen des gesuchten Fahrzeuges ein: ");
+        parkhaus.fahrzeugSuche(kennzeichen);
     }
 }

@@ -70,7 +70,6 @@ public class Parkhaus {
         for(Etage tmpEtage : etagen) {
            Parkplatz parkplatz = tmpEtage.findeFreienEtagenParkplatz();
            if(parkplatz != null){
-               System.out.print("Etage: " + tmpEtage.getEtagenId() + ". ");
                return parkplatz;
            }
 
@@ -89,30 +88,61 @@ public class Parkhaus {
         return  false;
     }
 
-    public boolean autoEinparken(int anzahl){
+    public boolean autoEinparken(){
+
         Auto auto = new Auto();
         Parkplatz freierParkplatz = findeFreienParkhausParkplatz();
         if(freierParkplatz != null){
             freierParkplatz.belegen(auto);
-            System.out.println("Das Fahrzeug: " + auto.getKennzeichen() + " hat auf dem Parkplatz : " + freierParkplatz.getId() + " eingeparkt.");
+            System.out.println("Das Auto: " + auto.getKennzeichen() + " hat auf dem Parkplatz : " + freierParkplatz.getId() + " eingeparkt.");
+            return true;
+        }
+        System.out.println("Das Parkhaus ist voll. Einparken nicht möglich!");
+        return false;
+    }
+
+
+
+    public boolean motorradEinparken(){
+        Motorrad motorrad = new Motorrad();
+        Parkplatz freierParkplatz = findeFreienParkhausParkplatz();
+        if(freierParkplatz != null){
+            freierParkplatz.belegen(motorrad);
+            System.out.println("Das Motorrad: " + motorrad.getKennzeichen() + " hat auf dem Parkplatz: " + freierParkplatz.getId() + " eingeparkt.");
             return true;
         }
         System.out.println("Das Parkhaus ist voll. Einparken nicht möglich!");
         return  false;
     }
+    public void alleAusparken(){
+        for(Etage tmpEtage : etagen){
+            for(Parkplatz tmpParkplatz: tmpEtage.getParkplaetze()){
+                if(!tmpParkplatz.istFrei()){
+                    tmpParkplatz.freigeben();
+                }
 
-
-
-    public boolean motorradEinparken(int anzahl){
-        Motorrad motorrad = new Motorrad();
-        Parkplatz freierParkplatz = findeFreienParkhausParkplatz();
-        if(freierParkplatz != null){
-            freierParkplatz.belegen(motorrad);
-            System.out.println("Das Fahrzeug: " + motorrad.getKennzeichen() + " hat auf dem Parkplatz : " + freierParkplatz.getId() + " eingeparkt.");
-            return true;
+            }
         }
-        System.out.println("Das Parkhaus ist voll. Einparken nicht möglich!");
-        return  false;
+        System.out.println("Alle Fahrzeuge ausgeparkt.");
+    }
+    public void alleEinparken(){
+        for(Etage tmpEtage : this.etagen){
+            for(Parkplatz tmpParkplatz : tmpEtage.getParkplaetze()){
+                Auto auto = new Auto();
+                tmpParkplatz = findeFreienParkhausParkplatz();
+                if(tmpParkplatz != null){
+                    tmpParkplatz.belegen(auto);
+                }
+
+                Motorrad motorrad = new Motorrad();
+                Parkplatz freierParkplatz = findeFreienParkhausParkplatz();
+                if(freierParkplatz != null){
+                    freierParkplatz.belegen(motorrad);
+                }
+            }
+        }
+        System.out.println("Das Parkhaus wurde gefüllt.");
+
     }
 
     public boolean ausparken(String kennzeichen){
@@ -158,14 +188,17 @@ public class Parkhaus {
     }
 
     public void geparkteFahrzeuge(){
+        int geparkteFahrzeuge = 0;
         System.out.println("Geparkte Fahrzeuge:");
         for (Etage etage : this.getEtagen()) {
             for (Parkplatz parkplatz : etage.getParkplaetze()) {
                 if (!parkplatz.istFrei()) {
+                    geparkteFahrzeuge++;
                     System.out.println(etage.getEtagenId() + ". Etage | Parkplatz: " + parkplatz.getId()  + " | " + parkplatz.getFahrzeug().getType() +  " | Kennzeichen: " + parkplatz.getFahrzeug().getKennzeichen());
                 }
             }
         }
+        System.out.println(geparkteFahrzeuge + " Fahrzeuge gefunden.");
     }
 
     public void freieParkplaetze(){
