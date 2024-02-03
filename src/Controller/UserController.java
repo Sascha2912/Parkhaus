@@ -22,7 +22,7 @@ public class UserController {
                 return userIntNumber;
             }catch(InputMismatchException ex){
                 // Benutzerinformation beim falschen Datentypen.
-                System.out.println("Ungültige Eingabe. Ihre Eingabe war entweder zu lang oder keine Zahl.\nGeben Sie bitte eine Zahl mit maximal 10 Ziffern ein: ");
+                System.out.println("Ungültige Eingabe. Ihre Eingabe war entweder zu lang oder keine Ganzzahl.\nGeben Sie bitte eine Zahl mit maximal 9 Ziffern ein: ");
             } catch (Exception ex) {
                 // Benutzerinformation bei allen weiteren Fehlern
                 System.out.println("Fehler!\nBitte versuchen Sie es erneut; ");
@@ -47,13 +47,13 @@ public class UserController {
                     return userIntNumber;
                     // Benutzerinformation beim falschen Wert.
                 } else if (userIntNumber < von) {
-                    System.out.println("Ihre Zahl ist zu klein.\nGeben Sie bitte einen größere Zahl ein: ");
+                    System.out.println("Ihre Zahl ist zu klein.\nAuswahl nicht gefunden: ");
                 } else if (userIntNumber > bis) {
-                    System.out.println("Ihre Zahl ist zu groß.\nGeben Sie bitte einen kleinere Zahl ein: ");
+                    System.out.println("Ihre Zahl ist zu groß.\nAuswahl nicht gefunden: ");
                 }
             }catch(InputMismatchException ex){
                 // Benutzerinformation beim falschen Datentypen.
-                System.out.println("Ungültige Eingabe. Ihre Eingabe war entweder zu lang oder keine Zahl.\nGeben Sie bitte eine Zahl mit maximal 10 Ziffern ein: ");
+                System.out.println("Ungültige Eingabe. Ihre Eingabe war entweder zu lang oder keine Ganzzahl.\nGeben Sie bitte eine Zahl mit maximal 9 Ziffern ein: ");
             } catch (Exception ex) {
                 // Benutzerinformation bei allen weiteren Fehlern
                 System.out.println("Fehler!\nBitte versuchen Sie es erneut; ");

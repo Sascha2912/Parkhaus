@@ -13,7 +13,8 @@ public class GaragenController {
    public void garageRun(){
        parkhaus = createParkhaus();
        parkhaus.gesamtGroesseParkhaus();
-       parkhausBearbeiten();
+       auswahl();
+       System.out.println("Programm beendet.");
 
 
    }
@@ -25,14 +26,28 @@ public class GaragenController {
        return newParkhaus;
    }
    public void auswahl(){
+        while(true){
+            int userWahl = UserController.getUserIntMinMax("Bitte wähle Sie:\nParkhaus bearbeiten (1)\nProgramm beenden (4)", 1, 4);
+            switch(userWahl){
+                case 1 -> parkhausBearbeiten();
 
+                case 4 -> {
+                    return;
+                }
+
+            }
+
+        }
    }
    public void parkhausBearbeiten(){
-        int userwahl = UserController.getUserIntMinMax("Parkhaus bearbeiten. Bitte wählen Sie:\nEtagen hinzufügen (1)\nEtagen entfernen (2)", 1, 2);
+        int userwahl = UserController.getUserIntMinMax("Parkhaus bearbeiten. Bitte wählen Sie:\nEtagen hinzufügen (1)\nEtagen entfernen (2)\nZurück (3)", 1, 3);
         int etagen = 0;
         switch (userwahl){
             case 1 -> addParkhausEtage();
             case 2 -> removeParkhausEtage();
+            case 3 -> {
+                return;
+            }
         }
        System.out.println("Parkhaus aktualisiert.");
        parkhaus.gesamtGroesseParkhaus();
