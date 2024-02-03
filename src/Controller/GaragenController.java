@@ -13,9 +13,10 @@ public class GaragenController {
     }
 
    public void garageRun(){
+       System.out.println("Parkhaus erstellen:");
        parkhaus = createParkhaus();
        parkhaus.gesamtGroesseParkhaus();
-       auswahl();
+       menue();
        System.out.println("Programm beendet.");
 
 
@@ -27,11 +28,11 @@ public class GaragenController {
        Parkhaus newParkhaus = new Parkhaus(anzahlEtagen, anzahlParkplaetzeProEtage);
        return newParkhaus;
    }
-   public void auswahl(){
+   public void menue(){
         while(true){
             int userWahl = UserController.getUserIntMinMax("Bitte wähle Sie:\nParkhaus bearbeiten (1)\nProgramm beenden (4)", 1, 4);
             switch(userWahl){
-                case 1 -> parkhausBearbeiten();
+                case 1 -> menueParkhausBearbeiten();
 
                 case 4 -> {
                     return;
@@ -41,12 +42,13 @@ public class GaragenController {
 
         }
    }
-   public void parkhausBearbeiten(){
-        int userWahl = UserController.getUserIntMinMax("Parkhaus bearbeiten. Bitte wählen Sie:\nEtagen hinzufügen (1)\nEtagen entfernen (2)\nZurück (3)", 1, 3);
+   public void menueParkhausBearbeiten(){
+        int userWahl = UserController.getUserIntMinMax("Parkhaus bearbeiten. Bitte wählen Sie:\nEtagen hinzufügen (1)\nEtagen entfernen (2)\nNeues Parkhaus erstellen (3)\nZurück (4)", 1, 4);
         switch (userWahl){
-            case 1 -> addParkhausEtage();
-            case 2 -> removeParkhausEtage();
-            case 3 -> {return;}
+            case 1 -> parkhausBearbeitenAddParkhausEtage();
+            case 2 -> parkhausBearbeitenRemoveParkhausEtage();
+            case 3 -> parkhaus = createParkhaus();
+            case 4 -> {return;}
         }
        System.out.println("Parkhaus aktualisiert.");
        parkhaus.gesamtGroesseParkhaus();
@@ -54,12 +56,12 @@ public class GaragenController {
 
 
    }
-   public void addParkhausEtage(){
+   public void parkhausBearbeitenAddParkhausEtage(){
        int addAnzahlEtagen = UserController.getUserInt("Wie viele Etagen sollen dem Parkhaus hinzugefügt werden: ");
-       int addAnzahlParkplaetzeProEtage = UserController.getUserInt("Wie viele Parkplätze soll es pro Etage geben: ");
-       parkhaus.addEtage(addAnzahlEtagen, addAnzahlParkplaetzeProEtage);
+       // int addAnzahlParkplaetzeProEtage = UserController.getUserInt("Wie viele Parkplätze soll es pro Etage geben: ");
+       parkhaus.addEtage(addAnzahlEtagen,parkhaus.getParkplaetzeProEtage());
    }
-   public void removeParkhausEtage(){
+   public void parkhausBearbeitenRemoveParkhausEtage(){
        int removeAnzahlEtagen = UserController.getUserInt("Wie viele Etagen sollen aus dem Parkhaus entfernt werden: ");
        parkhaus.removeEtage(removeAnzahlEtagen);
    }

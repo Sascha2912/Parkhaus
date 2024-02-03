@@ -12,11 +12,13 @@ public class Parkhaus {
     public List<Etage> etagen;
 
     private int anzahlEtagen;
+    private int parkplaetzeProEtage;
 
     private int anzahlParkplaetzeGesamt;
 
     public Parkhaus(int anzahlEtagen, int parkplaetzeProEtage){
         etagen = new ArrayList<>();
+        this.parkplaetzeProEtage = parkplaetzeProEtage;
         addEtage(anzahlEtagen, parkplaetzeProEtage);
 
     }
@@ -48,6 +50,9 @@ public class Parkhaus {
 
     public List<Etage> getEtagen(){
         return this.etagen;
+    }
+    public int getParkplaetzeProEtage(){
+        return this.parkplaetzeProEtage;
     }
     public int getAllParkplaetze(){
         int parkplatzCount = 0;
