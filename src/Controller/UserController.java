@@ -35,7 +35,7 @@ public class UserController {
 
     public static int getUserIntMinMax(String abfrage, int von, int bis){
         // Benutzerinformation, welche Werte und Datentypen zulässig sind.
-        System.out.print(abfrage);
+        System.out.println(abfrage);
         int userIntNumber;
         // Wiederholung bis zur gewünschten Eingabe.
         while(true) {

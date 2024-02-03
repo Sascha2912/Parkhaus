@@ -46,7 +46,7 @@ public class GaragenController {
        parkhaus.addEtage(addAnzahlEtagen, addAnzahlParkplaetzeProEtage);
    }
    public void removeParkhausEtage(){
-       int removeAnzahlEtagen = UserController.getUserInt("Wie viele Etagen sollen dem Parkhaus hinzugefügt werden: ");
+       int removeAnzahlEtagen = UserController.getUserInt("Wie viele Etagen sollen aus dem Parkhaus entfernt werden: ");
        parkhaus.removeEtage(removeAnzahlEtagen);
    }
 }

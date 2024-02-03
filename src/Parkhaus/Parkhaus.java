@@ -25,16 +25,25 @@ public class Parkhaus {
         for(int i = 1; i <= anzahlEtagen; i++){
             etagen.add(new Etage(parkplaetzeProEtage));
         }
-        this.anzahlEtagen = anzahlEtagen;
+        this.anzahlEtagen += anzahlEtagen;
         this.anzahlParkplaetzeGesamt = getAllParkplaetze();
     }
 
     public void removeEtage(int removeAnzahlEtagen){
-        for(int i = 1; i <= removeAnzahlEtagen; i++){
-            etagen.remove(etagen.size() - 1);
+        int aktuelleAnzahlEtagen = etagen.size();
+        int neueAnzahlEtagen = aktuelleAnzahlEtagen - removeAnzahlEtagen;
+
+        if(neueAnzahlEtagen >= 0){
+            for(int i = 0; i < removeAnzahlEtagen; i++){
+                etagen.remove(etagen.size() - 1);
+            }
+            this.anzahlEtagen = neueAnzahlEtagen;
+            this.anzahlParkplaetzeGesamt = getAllParkplaetze();
+        }else{
+            System.out.println("Fehler: Die Anzahl der zu entfernenden Etagen ist größer als die aktuelle Anzahl der Etagen.");
         }
-        this.anzahlEtagen = this.anzahlEtagen - anzahlEtagen;
-        this.anzahlParkplaetzeGesamt = getAllParkplaetze();
+
+
     }
 
     public List<Etage> getEtagen(){
