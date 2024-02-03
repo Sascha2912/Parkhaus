@@ -84,7 +84,7 @@ public class Parkhaus {
         return  false;
     }
 
-    public boolean autoEinparken(){
+    public boolean autoEinparken(int anzahl){
         Auto auto = new Auto();
         Parkplatz freierParkplatz = findeFreienParkhausParkplatz();
         if(freierParkplatz != null){
@@ -98,7 +98,7 @@ public class Parkhaus {
 
 
 
-    public boolean motorradEinparken(){
+    public boolean motorradEinparken(int anzahl){
         Motorrad motorrad = new Motorrad();
         Parkplatz freierParkplatz = findeFreienParkhausParkplatz();
         if(freierParkplatz != null){

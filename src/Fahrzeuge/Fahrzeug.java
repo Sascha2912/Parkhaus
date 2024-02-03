@@ -1,5 +1,7 @@
 package Fahrzeuge;
 
+import java.util.HashMap;
+
 public abstract class Fahrzeug {
 
     private String kennzeichen;
