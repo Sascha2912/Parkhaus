@@ -42,7 +42,7 @@ public class Parkhaus {
             this.anzahlEtagen = neueAnzahlEtagen;
             this.anzahlParkplaetzeGesamt = getAllParkplaetze();
         }else{
-            System.out.println("Fehler: Die Anzahl der zu entfernenden Etagen ist größer als die aktuelle Anzahl der Etagen.");
+            System.out.println("Fehler: Die Anzahl der zu entfernenden Etagen ist größer als die aktuelle Anzahl der Etagen.\n");
         }
 
 
@@ -81,10 +81,10 @@ public class Parkhaus {
         Parkplatz freierParkplatz = findeFreienParkhausParkplatz();
         if(freierParkplatz != null){
             freierParkplatz.belegen(fahrzeug);
-            System.out.println("Das Fahrzeug: " + fahrzeug.getKennzeichen() + " hat auf dem Parkplatz : " + freierParkplatz.getId() + " eingeparkt.");
+            System.out.println("\nDas Fahrzeug: " + fahrzeug.getKennzeichen() + " hat auf dem Parkplatz : " + freierParkplatz.getId() + " eingeparkt.");
             return true;
         }
-        System.out.println("Das Parkhaus ist voll. Einparken nicht möglich!");
+        System.out.println("Das Parkhaus ist voll. Einparken nicht möglich!\n");
         return  false;
     }
 
@@ -94,10 +94,10 @@ public class Parkhaus {
         Parkplatz freierParkplatz = findeFreienParkhausParkplatz();
         if(freierParkplatz != null){
             freierParkplatz.belegen(auto);
-            System.out.println("Das Auto: " + auto.getKennzeichen() + " hat auf dem Parkplatz : " + freierParkplatz.getId() + " eingeparkt.");
+            System.out.println("\nDas Auto: " + auto.getKennzeichen() + " hat auf dem Parkplatz : " + freierParkplatz.getId() + " eingeparkt.");
             return true;
         }
-        System.out.println("Das Parkhaus ist voll. Einparken nicht möglich!");
+        System.out.println("Das Parkhaus ist voll. Einparken nicht möglich!\n");
         return false;
     }
 
@@ -108,10 +108,10 @@ public class Parkhaus {
         Parkplatz freierParkplatz = findeFreienParkhausParkplatz();
         if(freierParkplatz != null){
             freierParkplatz.belegen(motorrad);
-            System.out.println("Das Motorrad: " + motorrad.getKennzeichen() + " hat auf dem Parkplatz: " + freierParkplatz.getId() + " eingeparkt.");
+            System.out.println("\nDas Motorrad: " + motorrad.getKennzeichen() + " hat auf dem Parkplatz: " + freierParkplatz.getId() + " eingeparkt.");
             return true;
         }
-        System.out.println("Das Parkhaus ist voll. Einparken nicht möglich!");
+        System.out.println("Das Parkhaus ist voll. Einparken nicht möglich!\n");
         return  false;
     }
     public void alleAusparken(){
@@ -123,7 +123,7 @@ public class Parkhaus {
 
             }
         }
-        System.out.println("Alle Fahrzeuge ausgeparkt.");
+        System.out.println("\nAlle Fahrzeuge ausgeparkt.");
     }
     public void alleEinparken(){
         for(Etage tmpEtage : this.etagen){
@@ -141,7 +141,7 @@ public class Parkhaus {
                 }
             }
         }
-        System.out.println("Das Parkhaus wurde gefüllt.");
+        System.out.println("Das Parkhaus wurde gefüllt.\n");
 
     }
 
@@ -149,11 +149,11 @@ public class Parkhaus {
          Parkplatz tmpParkplatz = fahrzeugSuche(kennzeichen);
 
         if(tmpParkplatz != null){
-            System.out.println("Ausgeparkt. Parkplatz wieder frei.");
+            System.out.println(" Ausgeparkt.\nParkplatz wieder frei.\n");
             tmpParkplatz.freigeben();
             return true;
         }
-        System.out.println("Fahrzeug nicht gefunden.");
+        System.out.println("Fahrzeug nicht gefunden.\n");
         return false;
     }
 
@@ -168,7 +168,7 @@ public class Parkhaus {
 
             }
         }
-        System.out.println("Fahrzeug nicht gefunden.");
+        System.out.println("Fahrzeug nicht gefunden.\n");
         return null;
     }
 
@@ -177,19 +177,19 @@ public class Parkhaus {
             for(Parkplatz tmpParkplatz: tmpEtage.getParkplaetze()){
                 if(!tmpParkplatz.istFrei() && tmpParkplatz.getFahrzeug().equals(fahrzeug)){
                     tmpParkplatz.freigeben();
-                    System.out.println("Das Fahrzeug: " + fahrzeug.getKennzeichen() + " hat den Parkplatz " + tmpParkplatz.getId() + " verlassen.\nParkplatz: " + tmpParkplatz.getId() + " ist wieder freigegeben.");
+                    System.out.println("\nDas Fahrzeug: " + fahrzeug.getKennzeichen() + " hat den Parkplatz " + tmpParkplatz.getId() + " verlassen.\nParkplatz: " + tmpParkplatz.getId() + " ist wieder freigegeben.");
                     return true;
                 }
 
             }
         }
-        System.out.println("Fahrzeug nicht gefunden.");
+        System.out.println("Fahrzeug nicht gefunden.\n");
         return false;
     }
 
     public void geparkteFahrzeuge(){
         int geparkteFahrzeuge = 0;
-        System.out.println("Geparkte Fahrzeuge:");
+        System.out.println("\nGeparkte Fahrzeuge:");
         for (Etage etage : this.getEtagen()) {
             for (Parkplatz parkplatz : etage.getParkplaetze()) {
                 if (!parkplatz.istFrei()) {
@@ -206,17 +206,31 @@ public class Parkhaus {
         for (Etage etage : this.getEtagen()) {
             for (Parkplatz parkplatz : etage.getParkplaetze()) {
                 if (parkplatz.istFrei()) {
-                    System.out.println(parkplatz.getId() + " Etage: " + etage.getEtagenId());
+                    System.out.print(parkplatz.getId() + " Etage: " + etage.getEtagenId() + " | ");
                 }
             }
+            System.out.println(" ");
         }
+    }
+
+    public void belegteParkplaetze(){
+        System.out.println("Belegte Parkplätze:");
+        for (Etage etage : this.getEtagen()) {
+            for (Parkplatz parkplatz : etage.getParkplaetze()) {
+                if ( !parkplatz.istFrei() ) {
+                    System.out.print(parkplatz.getId() + " Etage: " + etage.getEtagenId() + " | ");
+                }
+            }
+            System.out.println(" ");
+        }
+
     }
 
     public void gesamtGroesseParkhaus(){
         int parkplaetzeProEtage = anzahlParkplaetzeGesamt / anzahlEtagen;
-        System.out.println("Das Parkhaus besteht aus:\n" + anzahlEtagen + " Etagen | " + parkplaetzeProEtage + " Parkplätzen pro Etage: " + "\nParkplätze gesamt => " + anzahlParkplaetzeGesamt);
+        System.out.println("\nDas Parkhaus besteht aus:\n" + anzahlEtagen + " Etagen | " + parkplaetzeProEtage + " Parkplätzen pro Etage: " + "\nParkplätze gesamt => " + anzahlParkplaetzeGesamt);
     }
-    public void parkhausBelegung(){
+    public void parkhausStatus(){
         int freieParkplaetze = 0;
         int belegteParkplaetze = 0;
         for(Etage tmpEtage : etagen){
@@ -227,7 +241,7 @@ public class Parkhaus {
             }
         }
         belegteParkplaetze = anzahlParkplaetzeGesamt - freieParkplaetze;
-        System.out.println("\nAnzahl Parkplätze gesamt: " + anzahlParkplaetzeGesamt + "\nParkplätze frei: " + freieParkplaetze + "\nParkplätze belegt: " + belegteParkplaetze);
+        System.out.println("\nAnzahl Parkplätze gesamt: " + anzahlParkplaetzeGesamt + " | belegt: " + belegteParkplaetze + " | frei: " + freieParkplaetze);
 
     }
 
