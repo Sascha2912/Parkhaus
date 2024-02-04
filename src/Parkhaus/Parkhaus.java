@@ -10,10 +10,8 @@ import java.util.List;
 public class Parkhaus {
 
     public List<Etage> etagen;
-
     private int anzahlEtagen;
     private int parkplaetzeProEtage;
-
     private int anzahlParkplaetzeGesamt;
 
     public Parkhaus(int anzahlEtagen, int parkplaetzeProEtage){
