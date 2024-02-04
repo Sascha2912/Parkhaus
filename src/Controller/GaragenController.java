@@ -5,12 +5,8 @@ import UserInput.UserInput;
 public class GaragenController {
 
     private Parkhaus parkhaus = null;
-    public GaragenController(){
-        garageRun();
 
-    }
-
-   private void garageRun(){
+   public void garageRun(){
        System.out.println("<< Parkhaus erstellen >>");
        parkhaus = createParkhaus();
        parkhaus.showGesamtgroesseParkhaus();
