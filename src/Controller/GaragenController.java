@@ -4,13 +4,13 @@ import UserInput.UserInput;
 
 public class GaragenController {
 
-    Parkhaus parkhaus = null;
+    private Parkhaus parkhaus = null;
     public GaragenController(){
         garageRun();
 
     }
 
-   public void garageRun(){
+   private void garageRun(){
        System.out.println("<< Parkhaus erstellen >>");
        parkhaus = createParkhaus();
        parkhaus.showGesamtgroesseParkhaus();
@@ -20,7 +20,7 @@ public class GaragenController {
 
    }
 
-   public void menue(){
+   private void menue(){
         while(true){
             int userWahl = UserInput.getUserIntMinMax("Bitte wähle Sie:\n(1) * Parkhaus bearbeiten *\n(2) * Parkhaus verwalten *\n(3) * Parkhausinformationen *\n(4) * Programm beenden *", 1, 4);
             switch(userWahl){
@@ -35,7 +35,7 @@ public class GaragenController {
 
         }
    }
-   public void menueParkhausBearbeiten(){
+   private void menueParkhausBearbeiten(){
         int userWahl = UserInput.getUserIntMinMax("Parkhaus bearbeiten. Bitte wählen Sie:\n(1) * Etagen hinzufügen *\n(2) * Etagen entfernen *\n(3) * Neues Parkhaus erstellen *\n(4) * Zurück *", 1, 4);
         switch (userWahl){
             case 1 -> addEtage();
@@ -48,18 +48,18 @@ public class GaragenController {
        menueParkhausBearbeiten();
 
    }
-   public void addEtage(){
+   private void addEtage(){
        int addAnzahlEtagen = UserInput.getUserInt("Wie viele Etagen sollen dem Parkhaus hinzugefügt werden: ");
        parkhaus.addEtage(addAnzahlEtagen);
    }
 
-   public Parkhaus createParkhaus(){
+   private Parkhaus createParkhaus(){
        int addAnzahlEtagen = UserInput.getUserInt("Wie viele Etagen sollen dem Parkhaus hinzugefügt werden: ");
        int anzahlParkplaetzeProEtage = UserInput.getUserInt("Wie viele Parkplätze soll es pro Etage geben: ");
        return new Parkhaus(addAnzahlEtagen, anzahlParkplaetzeProEtage);
    }
 
-   public void menueParkhausVerwalten(){
+   private void menueParkhausVerwalten(){
        parkhaus.showParkhausStatus();
         int userWahl = UserInput.getUserIntMinMax("|Parkhaus verwalten|:\n(1) * Fahrzeuge einparken *\n(2) * Fahrzeuge ausparken *\n(3) * Fahrzeugsuche *\n(4) * Zurück *", 1, 5);
 
@@ -72,7 +72,7 @@ public class GaragenController {
         menueParkhausVerwalten();
 
    }
-    public void parkhausVerwaltenFahrzeugEinparken(){
+    private void parkhausVerwaltenFahrzeugEinparken(){
         parkhaus.showParkhausStatus();
         int userWahl = UserInput.getUserIntMinMax("|Fahrzeuge einparken|: Bitte wählen Sie:\n(1) * Auto einparken *\n(2) * Motorrad einparken *\n(3) * Gesamtes Parkhaus füllen *\n(4) * Zurück *", 1, 4);
         switch (userWahl){
@@ -84,20 +84,20 @@ public class GaragenController {
         parkhausVerwaltenFahrzeugEinparken();
     }
 
-    public void fahrzeugEinparkenParkeAuto(){
+    private void fahrzeugEinparkenParkeAuto(){
         int anzahlAutosParken = UserInput.getUserInt("Wie viele Autos sollen eingeparkt werden: ");
         for(int i = 0; i < anzahlAutosParken; i++){
             parkhaus.setAuto();
         }
     }
-    public void fahrzeugEinparkenParkeMotorrad(){
+    private void fahrzeugEinparkenParkeMotorrad(){
         int anzahlMotorraederParken = UserInput.getUserInt("Wie viele Motorräder sollen eingeparkt werden werden: ");
         for(int i = 0; i < anzahlMotorraederParken; i++){
             parkhaus.setMotorrad();
         }
     }
 
-    public void parkhausVerwaltenFahrzeugAusparken(){
+    private void parkhausVerwaltenFahrzeugAusparken(){
         parkhaus.showParkhausStatus();
         int userWahl = UserInput.getUserIntMinMax("|Fahrzeuge ausparken|: Bitte wählen Sie:\n(1) * Alle geparkten Fahrzeuge anzeigen *\n(2) * Fahrzeug ausparken *\n(3) * Gesamtes Parkhaus leeren *\n(4) * Zurück *", 1, 4);
         switch (userWahl){
@@ -109,13 +109,13 @@ public class GaragenController {
         parkhausVerwaltenFahrzeugAusparken();
     }
 
-    public void parkhausVerwaltenSucheFahrzeug(){
+    private void parkhausVerwaltenSucheFahrzeug(){
         System.out.println("|Fahrzeug suche|: ");
         String kennzeichen = UserInput.getUserString("Geben Sie bitte das Kennzeichen des gesuchten Fahrzeuges ein: ");
         parkhaus.getParkplatz(kennzeichen);
     }
 
-    public void menueParkhausStatus(){
+    private void menueParkhausStatus(){
         parkhaus.showParkhausStatus();
         int userWahl = UserInput.getUserIntMinMax("|Parkhausinformationen|:\n(1) * Freie Parkplätze *\n(2) * Belegte Parkplätze *\n\n(4) * Zurück *", 1, 4);
 
