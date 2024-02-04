@@ -1,8 +1,8 @@
-package Controller;
+package UserInput;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
-public class UserController {
+public class UserInput {
     private static final Scanner userInput = new Scanner(System.in);
 
     public static String getUserString(String abfrage){

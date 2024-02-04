@@ -3,6 +3,7 @@ package Parkhaus;
 import Fahrzeuge.Auto;
 import Fahrzeuge.Fahrzeug;
 import Fahrzeuge.Motorrad;
+import UserInput.UserInput;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,14 +11,14 @@ import java.util.List;
 public class Parkhaus {
 
     public List<Etage> etagen;
-    private int anzahlEtagen;
+    private int anzahlEtagenGesamt;
     private int parkplaetzeProEtage;
     private int anzahlParkplaetzeGesamt;
 
-    public Parkhaus(int anzahlEtagen, int parkplaetzeProEtage){
+    public Parkhaus(int anzahlEtagen, int anzahlParkplaetzeProEtage){
         etagen = new ArrayList<>();
-        this.parkplaetzeProEtage = parkplaetzeProEtage;
-        addEtage(anzahlEtagen, parkplaetzeProEtage);
+        this.parkplaetzeProEtage = anzahlParkplaetzeProEtage;
+        addEtage(anzahlEtagen);
 
     }
 
@@ -52,7 +53,7 @@ public class Parkhaus {
             for(Parkplatz tmpParkplatz: tmpEtage.getAllParkplaetze()){
                 Fahrzeug tmpFahrzeug = tmpParkplatz.getFahrzeug();
                 if( tmpFahrzeug != null && !tmpParkplatz.istFrei() && tmpFahrzeug.getKennzeichen().equals( kennzeichen.toUpperCase() ) ){
-                    System.out.println("Kennzeichen: " + tmpFahrzeug.getKennzeichen() + " | Fahrzeugtyp: " + tmpFahrzeug.getType() +  " | Etage: " + tmpEtage.getEtagenId() + " | Parkplatz: " + tmpParkplatz.getId() );
+                    System.out.print("Kennzeichen: " + tmpFahrzeug.getKennzeichen() + " | Fahrzeugtyp: " + tmpFahrzeug.getType() +  " | Etage: " + tmpEtage.getEtagenId() + " | Parkplatz: " + tmpParkplatz.getId() );
                     return tmpParkplatz;
                 }
 
@@ -68,8 +69,10 @@ public class Parkhaus {
         if(freierParkplatz != null){
             freierParkplatz.setFahrzeug(auto);
             System.out.println("\nDas Auto: " + auto.getKennzeichen() + " hat auf dem Parkplatz : " + freierParkplatz.getId() + " eingeparkt.");
+        }else {
+            System.out.println("Das Parkhaus ist voll. Einparken nicht möglich!\n");
         }
-        System.out.println("Das Parkhaus ist voll. Einparken nicht möglich!\n");
+
     }
 
     public void setMotorrad(){
@@ -78,8 +81,10 @@ public class Parkhaus {
         if(freierParkplatz != null){
             freierParkplatz.setFahrzeug(motorrad);
             System.out.println("\nDas Motorrad: " + motorrad.getKennzeichen() + " hat auf dem Parkplatz: " + freierParkplatz.getId() + " eingeparkt.");
+        }else{
+            System.out.println("Das Parkhaus ist voll. Einparken nicht möglich!\n");
         }
-        System.out.println("Das Parkhaus ist voll. Einparken nicht möglich!\n");
+
     }
 
     public void setAllFahrzeuge(){
@@ -102,15 +107,16 @@ public class Parkhaus {
 
     }
 
-    public void addEtage(int anzahlEtagen, int parkplaetzeProEtage){
+    public void addEtage(int anzahlEtagen){
         for(int i = 1; i <= anzahlEtagen; i++){
             etagen.add(new Etage(parkplaetzeProEtage));
         }
-        this.anzahlEtagen += anzahlEtagen;
+        this.anzahlEtagenGesamt += anzahlEtagen;
         this.anzahlParkplaetzeGesamt = getAllAnzahlParkplaetze();
     }
 
-    public void removeEtage(int removeAnzahlEtagen){
+    public void removeEtage(){
+        int removeAnzahlEtagen = UserInput.getUserInt("Wie viele Etagen sollen aus dem Parkhaus entfernt werden: ");
         int aktuelleAnzahlEtagen = etagen.size();
         int neueAnzahlEtagen = aktuelleAnzahlEtagen - removeAnzahlEtagen;
 
@@ -118,20 +124,23 @@ public class Parkhaus {
             for(int i = 0; i < removeAnzahlEtagen; i++){
                 etagen.remove(etagen.size() - 1);
             }
-            this.anzahlEtagen = neueAnzahlEtagen;
+            this.anzahlEtagenGesamt = neueAnzahlEtagen;
             this.anzahlParkplaetzeGesamt = getAllAnzahlParkplaetze();
         }else{
             System.out.println("Fehler: Die Anzahl der zu entfernenden Etagen ist größer als die aktuelle Anzahl der Etagen.\n");
         }
     }
 
-    public void removeFahrzeug(String kennzeichen){
+    public void removeFahrzeug(){
+        String kennzeichen = UserInput.getUserString("Bitte geben Sie das Kennezichen ein von dem Fahrzeug das ausgeparkt werden soll: ");
         Parkplatz tmpParkplatz = getParkplatz(kennzeichen);
         if(tmpParkplatz != null){
-            System.out.println(" Ausgeparkt.\nParkplatz wieder frei.\n");
+            System.out.println(" => Ausgeparkt.\nParkplatz wieder frei.\n");
             tmpParkplatz.removeFahrzeug();
+        }else{
+            System.out.println("Fahrzeug nicht gefunden.\n");
         }
-        System.out.println("Fahrzeug nicht gefunden.\n");
+
     }
 
     public void removeAllFahrzeuge(){
@@ -186,8 +195,8 @@ public class Parkhaus {
     }
 
     public void showGesamtgroesseParkhaus(){
-        int parkplaetzeProEtage = anzahlParkplaetzeGesamt / anzahlEtagen;
-        System.out.println("\nDas Parkhaus besteht aus:\n" + anzahlEtagen + " Etagen | " + parkplaetzeProEtage + " Parkplätzen pro Etage: " + "\nParkplätze gesamt => " + anzahlParkplaetzeGesamt);
+        int parkplaetzeProEtage = anzahlParkplaetzeGesamt / anzahlEtagenGesamt;
+        System.out.println("\nDas Parkhaus besteht aus:\n" + anzahlEtagenGesamt + " Etagen | " + parkplaetzeProEtage + " Parkplätzen pro Etage: " + "\nParkplätze gesamt => " + anzahlParkplaetzeGesamt);
     }
     public void showParkhausStatus(){
         int freieParkplaetze = 0;
