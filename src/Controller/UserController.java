@@ -10,37 +10,11 @@ public class UserController {
         return userInput.nextLine();
     }
 
-    public static int getUserInt(String abfrage){
-        // Benutzerinformation, welche Werte und Datentypen zulässig sind.
-        System.out.print(abfrage);
-        int userIntNumber;
-        // Wiederholung bis zur gewünschten Eingabe.
-        while(true) {
-            try {
-                // User-Abfrage
-                userIntNumber = userInput.nextInt();
-                return userIntNumber;
-            }catch(InputMismatchException ex){
-                // Benutzerinformation beim falschen Datentypen.
-                System.out.println("Ungültige Eingabe. Ihre Eingabe war entweder zu lang oder keine Ganzzahl.\nGeben Sie bitte eine Zahl mit maximal 9 Ziffern ein: ");
-            } catch (Exception ex) {
-                // Benutzerinformation bei allen weiteren Fehlern
-                System.out.println("Fehler!\nBitte versuchen Sie es erneut; ");
-            }finally {
-                // Tastaturpuffer leeren.
-                userInput.nextLine();
-            }
-        }
-    }
-
     public static int getUserIntMinMax(String abfrage, int von, int bis){
-        // Benutzerinformation, welche Werte und Datentypen zulässig sind.
         System.out.println(abfrage);
         int userIntNumber;
-        // Wiederholung bis zur gewünschten Eingabe.
         while(true) {
             try {
-                // User-Abfrage
                 userIntNumber = userInput.nextInt();
                 // Bedingung definieren.
                 if (userIntNumber >= von && userIntNumber <= bis) {
@@ -59,6 +33,23 @@ public class UserController {
                 System.out.println("Fehler!\nBitte versuchen Sie es erneut; ");
             }finally {
                 // Tastaturpuffer leeren.
+                userInput.nextLine();
+            }
+        }
+    }
+
+    public static int getUserInt(String abfrage){
+        System.out.print(abfrage);
+        int userIntNumber;
+        while(true) {
+            try {
+                userIntNumber = userInput.nextInt();
+                return userIntNumber;
+            }catch(InputMismatchException ex){
+                System.out.println("Ungültige Eingabe. Ihre Eingabe war entweder zu lang oder keine Ganzzahl.\nGeben Sie bitte eine Zahl mit maximal 9 Ziffern ein: ");
+            } catch (Exception ex) {
+                System.out.println("Fehler!\nBitte versuchen Sie es erneut; ");
+            }finally {
                 userInput.nextLine();
             }
         }

@@ -1,12 +1,9 @@
 package Controller;
-import Fahrzeuge.*;
 import Parkhaus.*;
 
 public class GaragenController {
 
     Parkhaus parkhaus = null;
-    Auto auto = null;
-    Motorrad motorrad = null;
     public GaragenController(){
         garageRun();
 
@@ -15,7 +12,7 @@ public class GaragenController {
    public void garageRun(){
        System.out.println("<< Parkhaus erstellen >>");
        parkhaus = createParkhaus();
-       parkhaus.gesamtGroesseParkhaus();
+       parkhaus.showGesamtgroesseParkhaus();
        menue();
        System.out.println("Programm beendet.");
 
@@ -52,7 +49,7 @@ public class GaragenController {
             case 4 -> {return;}
         }
        System.out.println("Parkhaus aktualisiert.");
-       parkhaus.gesamtGroesseParkhaus();
+       parkhaus.showGesamtgroesseParkhaus();
        menueParkhausBearbeiten();
 
 
@@ -67,81 +64,85 @@ public class GaragenController {
        int removeAnzahlEtagen = UserController.getUserInt("Wie viele Etagen sollen aus dem Parkhaus entfernt werden: ");
        parkhaus.removeEtage(removeAnzahlEtagen);
    }
+
    public void menueParkhausVerwalten(){
-       parkhaus.parkhausStatus();
+       parkhaus.showParkhausStatus();
         int userWahl = UserController.getUserIntMinMax("|Parkhaus verwalten|:\n(1) * Fahrzeuge einparken *\n(2) * Fahrzeuge ausparken *\n(3) * Fahrzeugsuche *\n(4) * Zurück *", 1, 5);
 
         switch (userWahl){
-            case 1 -> fahrzeugEinparken();
-            case 2 -> fahrzeugAusparken();
-            case 3 -> sucheFahrzeug();
+            case 1 -> parkhausVerwaltenFahrzeugEinparken();
+            case 2 -> parkhausVerwaltenFahrzeugAusparken();
+            case 3 -> parkhausVerwaltenSucheFahrzeug();
             case 4 -> {return;}
         }
         menueParkhausVerwalten();
 
-
    }
-   public void menueParkhausStatus(){
-       parkhaus.parkhausStatus();
-       int userWahl = UserController.getUserIntMinMax("|Parkhausinformationen|:\n(1) * Freie Parkplätze *\n(2) * Belegte Parkplätze *\n\n(4) * Zurück *", 1, 4);
 
-       switch (userWahl){
-           case 1 -> parkhaus.freieParkplaetze();
-           case 2 -> parkhaus.belegteParkplaetze();
-           case 3 -> System.out.println("Ungültige Eingabe");
-           case 4 -> {return;}
-       }
-       menueParkhausStatus();
-   }
-   public void fahrzeugEinparken(){
-       parkhaus.parkhausStatus();
+   public void parkhausVerwaltenFahrzeugEinparken(){
+       parkhaus.showParkhausStatus();
        int userWahl = UserController.getUserIntMinMax("|Fahrzeuge einparken|: Bitte wählen Sie:\n(1) * Auto einparken *\n(2) * Motorrad einparken *\n(3) * Gesamtes Parkhaus füllen *\n(4) * Zurück *", 1, 4);
        switch (userWahl){
-           case 1 -> parkeAuto();
-           case 2 -> parkeMotorrad();
-           case 3 -> parkhausFuellen();
+           case 1 -> fahrzeugEinparkenParkeAuto();
+           case 2 -> fahrzeugEinparkenParkeMotorrad();
+           case 3 -> fahrzeugEinparkenParkhausFuellen();
            case 4 -> {return;}
        }
-       fahrzeugEinparken();
+       parkhausVerwaltenFahrzeugEinparken();
    }
-    public void fahrzeugAusparken(){
-        parkhaus.parkhausStatus();
-        int userWahl = UserController.getUserIntMinMax("|Fahrzeuge ausparken|: Bitte wählen Sie:\n(1) * Alle geparkten Fahrzeuge anzeigen *\n(2) * Fahrzeug ausparken *\n(3) * Gesamtes Parkhaus leeren *\n(4) * Zurück *", 1, 4);
-        switch (userWahl){
-            case 1 -> parkhaus.geparkteFahrzeuge();
-            case 2 -> einFahrzeugAusparken();
-            case 3 -> parkhausLeeren();
-            case 4 -> {return;}
-        }
-        fahrzeugAusparken();
-    }
-
-   public void parkeAuto(){
+    public void fahrzeugEinparkenParkeAuto(){
         int anzahlAutosParken = UserController.getUserInt("Wie viele Autos sollen eingeparkt werden: ");
         for(int i = 0; i < anzahlAutosParken; i++){
-            parkhaus.autoEinparken();
+            parkhaus.setAuto();
         }
-   }
-    public void parkeMotorrad(){
+    }
+    public void fahrzeugEinparkenParkeMotorrad(){
         int anzahlMotorraederParken = UserController.getUserInt("Wie viele Motorräder sollen eingeparkt werden werden: ");
         for(int i = 0; i < anzahlMotorraederParken; i++){
-            parkhaus.motorradEinparken();
+            parkhaus.setMotorrad();
         }
     }
-    public void parkhausFuellen(){
-        parkhaus.alleEinparken();
-    }
-    public void parkhausLeeren(){
-        parkhaus.alleAusparken();
-    }
-    public void einFahrzeugAusparken(){
-        String kennzeichen = UserController.getUserString("Bitte geben Sie das Kennezichen ein von dem Fahrzeug das ausgeparkt werden soll: ");
-        parkhaus.ausparken(kennzeichen);
+    public void fahrzeugEinparkenParkhausFuellen(){
+        parkhaus.setAllFahrzeuge();
     }
 
-    public void sucheFahrzeug(){
+    public void parkhausVerwaltenFahrzeugAusparken(){
+        parkhaus.showParkhausStatus();
+        int userWahl = UserController.getUserIntMinMax("|Fahrzeuge ausparken|: Bitte wählen Sie:\n(1) * Alle geparkten Fahrzeuge anzeigen *\n(2) * Fahrzeug ausparken *\n(3) * Gesamtes Parkhaus leeren *\n(4) * Zurück *", 1, 4);
+        switch (userWahl){
+            case 1 -> parkhaus.showGeparkteFahrzeuge();
+            case 2 -> fahzeugAusparkenEinFahrzeugAusparken();
+            case 3 -> fahrzeugAusparkenParkhausLeeren();
+            case 4 -> {return;}
+        }
+        parkhausVerwaltenFahrzeugAusparken();
+    }
+
+    public void fahzeugAusparkenEinFahrzeugAusparken(){
+        String kennzeichen = UserController.getUserString("Bitte geben Sie das Kennezichen ein von dem Fahrzeug das ausgeparkt werden soll: ");
+        parkhaus.removeFahrzeug(kennzeichen);
+    }
+
+    public void fahrzeugAusparkenParkhausLeeren(){
+        parkhaus.removeAllFahrzeuge();
+    }
+
+    public void parkhausVerwaltenSucheFahrzeug(){
         System.out.println("|Fahrzeug suche|: ");
         String kennzeichen = UserController.getUserString("Geben Sie bitte das Kennzeichen des gesuchten Fahrzeuges ein: ");
-        parkhaus.fahrzeugSuche(kennzeichen);
+        parkhaus.getParkplatz(kennzeichen);
+    }
+
+    public void menueParkhausStatus(){
+        parkhaus.showParkhausStatus();
+        int userWahl = UserController.getUserIntMinMax("|Parkhausinformationen|:\n(1) * Freie Parkplätze *\n(2) * Belegte Parkplätze *\n\n(4) * Zurück *", 1, 4);
+
+        switch (userWahl){
+            case 1 -> parkhaus.showFreieParkplaetze();
+            case 2 -> parkhaus.showBelegteParkplaetze();
+            case 3 -> System.out.println("Ungültige Eingabe");
+            case 4 -> {return;}
+        }
+        menueParkhausStatus();
     }
 }

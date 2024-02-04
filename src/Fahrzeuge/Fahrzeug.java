@@ -1,7 +1,5 @@
 package Fahrzeuge;
 
-import java.util.HashMap;
-
 public abstract class Fahrzeug {
 
     private String kennzeichen;
@@ -26,12 +24,4 @@ public abstract class Fahrzeug {
     public String getType(){
         return this.typ;
     }
-
-    public void reinfahren(){
-        System.out.println("Das Fahrzeug mit dem Kennzeichen: " + kennzeichen + " fährt ins Parkhaus hinein.");
-    }
-    public void verlassen(){
-        System.out.println("Das Fahrzeug mit dem Kennzeichen: " + kennzeichen + " verlässt das Parkhaus.");
-    }
-
 }
